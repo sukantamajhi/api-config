@@ -1,0 +1,15 @@
+{
+  "name": "api-config",
+  "version": "1.0.9",
+  "description": "This package is for fetch data easily",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --config webpack.config.ts"
+  },
+  "author": "Sukanta Majhi",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.7.4"
+  }
+}
