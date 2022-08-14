@@ -2,9 +2,14 @@ import getLocalStorageData from "./getLocalStorageData";
 
 export const getLocalStorage = (key: string) => getLocalStorageData(key);
 
-export const doGetApiCall = async (data: any) => {
+export const doGetApiCall = async (data: getData) => {
 	return new Promise(async (resolve, reject) => {
-		const token = getLocalStorageData("token");
+		let token;
+		if (data.authToken) {
+			token = data.authToken
+		} else {
+			getLocalStorageData("token");
+		}
 		console.log(token, "<<-- token")
 		const reqstValues = {
 			method: "GET",
@@ -31,12 +36,14 @@ export const doGetApiCall = async (data: any) => {
 	});
 };
 
-export const doPostApiCall = async (data: any) => {
+export const doPostApiCall = async (data: postData) => {
 	console.log(data, "<<-- data");
 	return new Promise(async (resolve, reject) => {
-		let token: any;
-		if (typeof window !== 'undefined') {
-			token = localStorage.getItem('token')
+		let token;
+		if (data.authToken) {
+			token = data.authToken
+		} else {
+			getLocalStorageData("token");
 		}
 		console.log(token, "<<-- token")
 		const reqstValues = {
@@ -74,9 +81,11 @@ export const doPostApiCall = async (data: any) => {
 export const doUploadMediaApiCall = async (data: any) => {
 	console.log(data, "<<-- data");
 	return new Promise(async (resolve, reject) => {
-		let token: any;
-		if (typeof window !== 'undefined') {
-			token = localStorage.getItem('token')
+		let token;
+		if (data.authToken) {
+			token = data.authToken
+		} else {
+			getLocalStorageData("token");
 		}
 		console.log(token, "<<-- token")
 		const reqstValues = {
@@ -109,11 +118,13 @@ export const doUploadMediaApiCall = async (data: any) => {
 	});
 };
 
-export const doDeleteApiCall = async (data: any) => {
+export const doDeleteApiCall = async (data: putData) => {
 	return new Promise(async (resolve, reject) => {
-		let token: any;
-		if (typeof window !== 'undefined') {
-			token = localStorage.getItem('token')
+		let token;
+		if (data.authToken) {
+			token = data.authToken
+		} else {
+			getLocalStorageData("token");
 		}
 		console.log(token, "<<-- token")
 		const reqstValues = {
@@ -139,12 +150,14 @@ export const doDeleteApiCall = async (data: any) => {
 	});
 };
 
-export const doPutApiCall = async (data: any) => {
+export const doPutApiCall = async (data: putData) => {
 	console.log(data, "<<-- data");
 	return new Promise(async (resolve, reject) => {
-		let token: any;
-		if (typeof window !== 'undefined') {
-			token = localStorage.getItem('token')
+		let token;
+		if (data.authToken) {
+			token = data.authToken
+		} else {
+			getLocalStorageData("token");
 		}
 		console.log(token, "<<-- token")
 		const reqstValues = {
