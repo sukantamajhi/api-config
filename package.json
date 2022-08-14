@@ -1,11 +1,15 @@
 {
   "name": "api-config",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This package is for fetch data easily",
   "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sukantamajhi/api-config.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build":"rm -rf dist lib && tsc"
+    "build": "rm -rf dist lib && tsc"
   },
   "author": "Sukanta Majhi",
   "license": "ISC",
