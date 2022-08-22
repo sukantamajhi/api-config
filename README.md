@@ -5,18 +5,18 @@ This package is used for fetch data easily by calling a function.  You just have
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-```bash
+```sh
 npm install npm@latest -g
 ```
 
 ## Installing
 
 Using npm :-
-```bash
+```sh
 $ npm i api-config
 ```
 Using yarn :-
-```bash
+```sh
 $ yarn add api-config
 ```
 
