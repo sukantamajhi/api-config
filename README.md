@@ -1,22 +1,22 @@
 # api-config
 
-This is a package where you don't need to use fetch or axios.  You just have to pass a object through parameter in these function.
+This package is used for fetch data easily by calling a function.  You just have to pass a object through parameter in these function and this function will return a json data.
 
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-```
-npm install npm@latest -g
+```sh
+$ npm install npm@latest -g
 ```
 
 ## Installing
 
 Using npm :-
-```
-$ npm install --save api-config
+```sh
+$ npm i api-config
 ```
 Using yarn :-
-```
+```sh
 $ yarn add api-config
 ```
 
@@ -70,7 +70,7 @@ import { doPostApiCall } from "api-config";
 
 ### Example
 
-let's assume my url is - 
+let's assume my url is -
 ```typescript
 https://jsonplaceholder.typicode.com/todos
 ```
@@ -88,7 +88,7 @@ so rather than using fetch or axios, we can use below function:
 
 ```typescript
 let data = await doPostApiCall({
-url:"https://jsonplaceholder.typicode.com/todos", 
+url:"https://jsonplaceholder.typicode.com/todos",
 bodyData: {
 "userId": 1,
 "id": 1,
@@ -101,7 +101,7 @@ And if there is your **authToken** in another storage,
 
 ```typescript
 let data = await doPostApiCall({
-url:"https://jsonplaceholder.typicode.com/todos", 
+url:"https://jsonplaceholder.typicode.com/todos",
 authToken:"YOUR_TOKEN",
 bodyData: {
 "userId": 1,
@@ -132,7 +132,7 @@ import { doGetApiCall } from "api-config";
 
 ### Example
 
-let's assume my url is - 
+let's assume my url is -
 ```typescript
 https://jsonplaceholder.typicode.com/todos/1
 ```
@@ -142,7 +142,7 @@ so rather than using fetch or axios, we can use below function:
 
 ```typescript
 let data = await doGetApiCall({
-url:"https://jsonplaceholder.typicode.com/todos", 
+url:"https://jsonplaceholder.typicode.com/todos",
 })
 ```
 
@@ -150,7 +150,7 @@ And if there is your **authToken** in another storage,
 
 ```typescript
 let data = await doGetApiCall({
-url:"https://jsonplaceholder.typicode.com/todos", 
+url:"https://jsonplaceholder.typicode.com/todos",
 authToken:"YOUR_TOKEN",
 })
 ```
@@ -175,7 +175,7 @@ import { doPutApiCall } from "api-config";
 
 ### Example
 
-let's assume my url is - 
+let's assume my url is -
 ```typescript
 https://jsonplaceholder.typicode.com/todos/1
 ```
@@ -198,7 +198,7 @@ And if there is your **authToken** in another storage,
 
 ```typescript
 let data = await doPutApiCall({
-url:"https://jsonplaceholder.typicode.com/todos", 
+url:"https://jsonplaceholder.typicode.com/todos",
 authToken:"YOUR_TOKEN",
 bodyData: {
 "userId": 1,
@@ -229,7 +229,7 @@ import { doDeleteApiCall } from "api-config";
 
 ### Example
 
-let's assume my url is - 
+let's assume my url is -
 ```typescript
 https://jsonplaceholder.typicode.com/todos/1
 ```
@@ -252,7 +252,7 @@ And if there is your **authToken** in another storage,
 
 ```typescript
 let data = await doDeleteApiCall({
-url:"https://jsonplaceholder.typicode.com/todos", 
+url:"https://jsonplaceholder.typicode.com/todos",
 authToken:"YOUR_TOKEN",
 bodyData: {
 "userId": 1,
