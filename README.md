@@ -6,7 +6,7 @@ This package is used for fetch data easily by calling a function.  You just have
 
 This is an example of how to list things you need to use the software and how to install them.
 ```sh
-npm install npm@latest -g
+$ npm install npm@latest -g
 ```
 
 ## Installing
