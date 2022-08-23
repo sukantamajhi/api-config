@@ -1,4 +1,7 @@
 import getLocalStorageData from "./getLocalStorageData";
+import { getData, postData, updateData } from "./interfaces";
+
+export { getData, postData, updateData }
 
 export const getLocalStorage = (key: string) => getLocalStorageData(key);
 
@@ -118,7 +121,7 @@ export const doUploadMediaApiCall = async (data: any) => {
 	});
 };
 
-export const doDeleteApiCall = async (data: putData) => {
+export const doDeleteApiCall = async (data: updateData) => {
 	return new Promise(async (resolve, reject) => {
 		let token;
 		if (data.authToken) {
@@ -150,7 +153,7 @@ export const doDeleteApiCall = async (data: putData) => {
 	});
 };
 
-export const doPutApiCall = async (data: putData) => {
+export const doPutApiCall = async (data: updateData) => {
 	console.log(data, "<<-- data");
 	return new Promise(async (resolve, reject) => {
 		let token;

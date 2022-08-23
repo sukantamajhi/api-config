@@ -1,6 +1,6 @@
 {
   "name": "api-config",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "This package is for fetch data easily",
   "main": "lib/index.js",
   "repository": {
