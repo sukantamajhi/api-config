@@ -1,6 +1,8 @@
+
 # api-config
 
 This package is used for fetch data easily by calling a function.  You just have to pass a object through parameter in these function and this function will return a json data.
+
 
 ### Prerequisites
 
@@ -88,27 +90,29 @@ so rather than using fetch or axios, we can use below function:
 
 ```typescript
 let data = await doPostApiCall({
-url:"https://jsonplaceholder.typicode.com/todos",
-bodyData: {
-"userId": 1,
-"id": 1,
-"title": "delectus aut autem",
-"completed": false
-}})
+	url:"https://jsonplaceholder.typicode.com/todos",
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
+})
 ```
 
 And if there is your **authToken** in another storage,
 
 ```typescript
 let data = await doPostApiCall({
-url:"https://jsonplaceholder.typicode.com/todos",
-authToken:"YOUR_TOKEN",
-bodyData: {
-"userId": 1,
-"id": 1,
-"title": "delectus aut autem",
-"completed": false
-}})
+	url:"https://jsonplaceholder.typicode.com/todos",
+	authToken:"YOUR_TOKEN",
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
+})
 ```
 
 You can see your **response** in the **data** variable.
@@ -142,7 +146,7 @@ so rather than using fetch or axios, we can use below function:
 
 ```typescript
 let data = await doGetApiCall({
-url:"https://jsonplaceholder.typicode.com/todos",
+	url:"https://jsonplaceholder.typicode.com/todos",
 })
 ```
 
@@ -150,8 +154,8 @@ And if there is your **authToken** in another storage,
 
 ```typescript
 let data = await doGetApiCall({
-url:"https://jsonplaceholder.typicode.com/todos",
-authToken:"YOUR_TOKEN",
+	url:"https://jsonplaceholder.typicode.com/todos",
+	authToken:"YOUR_TOKEN",
 })
 ```
 
@@ -185,27 +189,29 @@ so rather than using fetch or axios, we can use below function:
 
 ```typescript
 let data = await doPutApiCall({
-url:"https://jsonplaceholder.typicode.com/todos",
-bodyData: {
-"userId": 1,
-"id": 1,
-"title": "delectus aut autem",
-"completed": false
-}})
+	url:"https://jsonplaceholder.typicode.com/todos",
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
+})
 ```
 
 And if there is your **authToken** in another storage,
 
 ```typescript
 let data = await doPutApiCall({
-url:"https://jsonplaceholder.typicode.com/todos",
-authToken:"YOUR_TOKEN",
-bodyData: {
-"userId": 1,
-"id": 1,
-"title": "delectus aut autem",
-"completed": false
-}})
+	url:"https://jsonplaceholder.typicode.com/todos",
+	authToken:"YOUR_TOKEN",
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
+})
 ```
 
 You can see your **response** in the **data** variable.
@@ -239,27 +245,99 @@ so rather than using fetch or axios, we can use below function:
 
 ```typescript
 let data = await doDeleteApiCall({
-url:"https://jsonplaceholder.typicode.com/todos",
-bodyData: {
-"userId": 1,
-"id": 1,
-"title": "delectus aut autem",
-"completed": false
-}})
+	url:"https://jsonplaceholder.typicode.com/todos",
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
+})
 ```
 
 And if there is your **authToken** in another storage,
 
 ```typescript
 let data = await doDeleteApiCall({
-url:"https://jsonplaceholder.typicode.com/todos",
-authToken:"YOUR_TOKEN",
-bodyData: {
-"userId": 1,
-"id": 1,
-"title": "delectus aut autem",
-"completed": false
-}})
+	url:"https://jsonplaceholder.typicode.com/todos",
+	authToken:"YOUR_TOKEN",
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
+})
 ```
 
 You can see your **response** in the **data** variable.
+
+
+## Interfaces for function's parameter.
+
+## getData
+
+This interface should be use for doGetApiCall function’s parameter.
+
+```ts
+interface getData {
+	url: string,
+	authToken?: string,
+}
+```
+
+### Example:
+```ts
+let data: getData = {
+	url: 'https://jsonplaceholder.typicode.com/todos'
+}
+```
+
+## postData
+
+This interface should be use for doPostApiCall function’s parameter.
+```ts
+interface postData {
+	url: string,
+	authToken?: string,
+	bodyData: object
+}
+```
+
+### Example:
+```ts
+let data: getData = {
+	url: 'https://jsonplaceholder.typicode.com/todos',
+	bodyData:{
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
+}
+```
+
+## updateData
+
+This interface should be use for doPostApiCall function’s parameter.
+```ts
+interface postData {
+	url: string,
+	authToken?: string,
+	bodyData?: object
+}
+```
+
+### Example:
+**N.B**: bodyData is optional here.
+```ts
+let data: updateData = {
+	url: 'https://jsonplaceholder.typicode.com/todos',
+	bodyData:{
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
+}
+```
