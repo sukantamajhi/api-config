@@ -35,19 +35,19 @@ Getting localstorage data easier. You don't have to parse the stringified json o
 ### Import
 
 ```typescript
-import { getLocalStorage } from "api-config";
+import { getLocalStorageValue } from "api-config";
 ```
 
 ### Examples
 
 - A normal string data
 	```typescript
-	getLocalStorage("Key")
+	getLocalStorageValue("Key")
 	```
 - A stringified json data
 
 	```typescript
-	getLocalStorage("key")
+	getLocalStorageValue("key")
 	```
 So as you see you don't have to parse the json object. Assign a variable in this function you can get your localstorage data.
 

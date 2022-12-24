@@ -3,7 +3,7 @@ import { getData, postData, updateData } from "./interfaces";
 
 export { getData, postData, updateData }
 
-export const getLocalStorage = (key: string) => getLocalStorageData(key);
+export const getLocalStorageValue = (key: string) => getLocalStorageData(key);
 
 export const doGetApiCall = async (data: getData) => {
 	return new Promise(async (resolve, reject) => {
