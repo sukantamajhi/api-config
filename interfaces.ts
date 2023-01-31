@@ -14,3 +14,13 @@ export interface updateData {
     authToken?: string,
     bodyData?: object
 }
+
+export interface requestValues {
+    headers: {
+        Authorization: string,
+        Accept?: string,
+        "Content-Type"?: string
+    },
+    body?: string | any,
+    method: string
+}
