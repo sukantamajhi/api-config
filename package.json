@@ -1,19 +1,26 @@
 {
-  "name": "api-config",
-  "version": "1.0.6",
-  "description": "This package is for fetch data easily",
-  "main": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sukantamajhi/api-config.git"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf lib && tsc"
-  },
-  "author": "Sukanta Majhi",
-  "license": "ISC",
-  "dependencies": {
-    "typescript": "^4.7.4"
-  }
+    "name": "api-config",
+    "version": "1.0.6",
+    "description": "This package is for fetch data easily",
+    "main": "lib/index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sukantamajhi/api-config.git"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "rm -rf lib && tsc --declaration; yarn minify",
+        "minify": "uglifyjs -mc --output lib/index.js -- lib/index.js; uglifyjs -mc --output lib/getLocalStorageData.js -- lib/getLocalStorageData.js; uglifyjs -mc --output lib/interfaces.js -- lib/interfaces.js"
+    },
+    "author": "Sukanta Majhi",
+    "license": "ISC",
+    "dependencies": {
+        "crypto-js": "^4.2.0",
+        "typescript": "^4.7.4",
+        "uglify-js": "^3.17.4"
+    },
+    "devDependencies": {
+        "@types/crypto-js": "^4.2.1",
+        "@types/node": "^20.10.5"
+    }
 }
