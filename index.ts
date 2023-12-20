@@ -1,7 +1,7 @@
-import { getData, postData, updateData } from "./interfaces";
+import {genTokenPayload, getData, postData, updateData} from "./interfaces";
 import CryptoJS = require("crypto-js");
 
-export { getData, postData, updateData };
+export {getData, postData, updateData};
 
 export const getLocalStorageValue = (key: string) => {
     if (typeof window === "undefined") {
@@ -21,37 +21,28 @@ export const getLocalStorageValue = (key: string) => {
 };
 
 export const generateToken = (
-    payload:
-        | string
-        | { [key: string]: string }
-        | Array<string | { [key: string]: string }>,
+    payload: genTokenPayload,
     secret: string
 ) => {
-    return new Promise<string>(async (resolve, reject) => {
-        try {
-            const ciphertext = CryptoJS.AES.encrypt(
-                typeof payload === "string" ? payload : JSON.stringify(payload),
-                secret
-            ).toString();
-            return resolve(ciphertext);
-        } catch (error) {
-            console.error(error, "<<-- error in generateToken");
-            return reject(error);
-        }
-    });
+    try {
+        return CryptoJS.AES.encrypt(
+            typeof payload === "string" ? payload : JSON.stringify(payload),
+            secret
+        ).toString();
+    } catch (error) {
+        console.error(error, "<<-- error in generateToken");
+        return error;
+    }
 };
 
 export const decodeToken = (token: string, secret: string) => {
-    return new Promise<string>(async (resolve, reject) => {
-        try {
-            var bytes = CryptoJS.AES.decrypt(token, secret);
-            var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-            return resolve(decryptedData);
-        } catch (error) {
-            console.error(error, "<<-- error in decodeToken");
-            return reject(error);
-        }
-    });
+    try {
+        const bytes = CryptoJS.AES.decrypt(token, secret);
+        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+    } catch (error) {
+        console.error(error, "<<-- error in decodeToken");
+        return error;
+    }
 };
 
 export const doGetApiCall = async (data: getData) => {
@@ -62,7 +53,7 @@ export const doGetApiCall = async (data: getData) => {
         } else {
             getLocalStorageValue("token");
         }
-        const reqstValues = {
+        const requestValues = {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -70,7 +61,7 @@ export const doGetApiCall = async (data: getData) => {
                 Authorization: token || "",
             },
         };
-        fetch(data.url, reqstValues)
+        fetch(data.url, requestValues)
             .then((response) => {
                 if (response.status === 401) {
                     localStorage.clear();
@@ -93,7 +84,7 @@ export const doPostApiCall = async (data: postData) => {
         } else {
             getLocalStorageValue("token");
         }
-        const reqstValues = {
+        const requestValues = {
             method: "POST",
             body: JSON.stringify(data.bodyData),
             headers: {
@@ -102,7 +93,7 @@ export const doPostApiCall = async (data: postData) => {
                 Authorization: token || "",
             },
         };
-        fetch(data.url, reqstValues)
+        fetch(data.url, requestValues)
             .then((result) => {
                 if (result.status === 401) {
                     localStorage.clear();
@@ -130,14 +121,14 @@ export const doUploadMediaApiCall = async (data: any) => {
         } else {
             getLocalStorageValue("token");
         }
-        const reqstValues = {
+        const requestValues = {
             method: "POST",
             body: data.bodyData,
             headers: {
                 Authorization: token || "",
             },
         };
-        fetch(data.url, reqstValues)
+        fetch(data.url, requestValues)
             .then((result) => {
                 if (result.status === 401) {
                     localStorage.clear();
@@ -165,7 +156,7 @@ export const doDeleteApiCall = async (data: updateData) => {
         } else {
             getLocalStorageValue("token");
         }
-        const reqstValues = {
+        const requestValues = {
             method: "DELETE",
             body: JSON.stringify(data.bodyData),
             headers: {
@@ -174,7 +165,7 @@ export const doDeleteApiCall = async (data: updateData) => {
                 Authorization: token || "",
             },
         };
-        fetch(data.url, reqstValues)
+        fetch(data.url, requestValues)
             .then((response) => {
                 if (response.status === 401) {
                     localStorage.clear();
@@ -196,7 +187,7 @@ export const doPutApiCall = async (data: updateData) => {
         } else {
             getLocalStorageValue("token");
         }
-        const reqstValues = {
+        const requestValues = {
             method: "PUT",
             body: JSON.stringify(data.bodyData),
             headers: {
@@ -205,7 +196,7 @@ export const doPutApiCall = async (data: updateData) => {
                 Authorization: token || "",
             },
         };
-        fetch(data.url, reqstValues)
+        fetch(data.url, requestValues)
             .then((result) => result.json())
             .then((result) => {
                 if (result.token) {
