@@ -1,7 +1,7 @@
 {
     "name": "api-config",
-    "version": "1.0.8",
-    "description": "This package is for fetch data easily",
+    "version": "1.1.2",
+    "description": "This package simplifies data retrieval through a straightforward function call",
     "main": "lib/index.js",
     "repository": {
         "type": "git",
@@ -21,5 +21,11 @@
     "devDependencies": {
         "@types/crypto-js": "^4.2.1",
         "@types/node": "^20.10.5"
+    },
+    "keywords": [
+        "reacjs", "nextjs", "nodejs", "xhr", "http", "node"
+    ],
+    "bugs": {
+        "url": "https://github.com/sukantamajhi/api-config/issues"
     }
 }
