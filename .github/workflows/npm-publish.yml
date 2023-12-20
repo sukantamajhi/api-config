@@ -16,15 +16,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 14
 
       - name: Install dependencies
         run: npm install
+
+      - name: Authenticate with npm registry
+        run: npm adduser --registry=https://registry.npmjs.org/ --scope=@sukantamajhi --always-auth
 
       - name: Build
         run: npm run build  # Replace with your build command if needed
 
       - name: Publish to npm
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: npm publish --access public  # Make sure to replace with your specific publish command
+        run: npm publish --access public
