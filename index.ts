@@ -1,10 +1,24 @@
-import getLocalStorageData from "./getLocalStorageData";
 import { getData, postData, updateData } from "./interfaces";
 import CryptoJS = require("crypto-js");
 
 export { getData, postData, updateData };
 
-export const getLocalStorageValue = (key: string) => getLocalStorageData(key);
+export const getLocalStorageValue = (key: string) => {
+    if (typeof window === "undefined") {
+        return null;
+    } else {
+        const data = localStorage.getItem(key);
+        if (data) {
+            try {
+                return JSON.parse(data);
+            } catch (error) {
+                return data;
+            }
+        } else {
+            return null;
+        }
+    }
+};
 
 export const generateToken = (
     payload:
@@ -46,7 +60,7 @@ export const doGetApiCall = async (data: getData) => {
         if (data.authToken) {
             token = data.authToken;
         } else {
-            getLocalStorageData("token");
+            getLocalStorageValue("token");
         }
         const reqstValues = {
             method: "GET",
@@ -77,7 +91,7 @@ export const doPostApiCall = async (data: postData) => {
         if (data.authToken) {
             token = data.authToken;
         } else {
-            getLocalStorageData("token");
+            getLocalStorageValue("token");
         }
         const reqstValues = {
             method: "POST",
@@ -114,7 +128,7 @@ export const doUploadMediaApiCall = async (data: any) => {
         if (data.authToken) {
             token = data.authToken;
         } else {
-            getLocalStorageData("token");
+            getLocalStorageValue("token");
         }
         const reqstValues = {
             method: "POST",
@@ -149,7 +163,7 @@ export const doDeleteApiCall = async (data: updateData) => {
         if (data.authToken) {
             token = data.authToken;
         } else {
-            getLocalStorageData("token");
+            getLocalStorageValue("token");
         }
         const reqstValues = {
             method: "DELETE",
@@ -180,7 +194,7 @@ export const doPutApiCall = async (data: updateData) => {
         if (data.authToken) {
             token = data.authToken;
         } else {
-            getLocalStorageData("token");
+            getLocalStorageValue("token");
         }
         const reqstValues = {
             method: "PUT",

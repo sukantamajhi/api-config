@@ -51,6 +51,16 @@ import { getLocalStorageValue } from "api-config";
 	```
 So as you see you don't have to parse the json object. Assign a variable in this function you can get your localstorage data.
 
+# Generate Token
+
+Usage :-
+ 
+- Calling **generateToken** function will generate a cipher text token based on the provided data and the secret key provided.
+
+		This function returns promise so either you have to use then catch or async/await.
+
+
+
 
 # doPostApiCall
 
