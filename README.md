@@ -1,14 +1,13 @@
 # api-config
 
-This package is used for fetch data easily by calling a function. You just have to pass a object through parameter in
-these function and this function will return a json data.
+This package simplifies data retrieval through a straightforward function call. By passing an object as a parameter to these functions, you can effortlessly obtain JSON data as the return output.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+Here is an illustrative example outlining the necessary steps to enumerate the essential components required for using the software, along with clear instructions on how to install each of them.
 
 ```sh
-$ npm install npm@latest -g
+npm install npm@latest -g
 ```
 
 ## Installing
@@ -16,13 +15,13 @@ $ npm install npm@latest -g
 Using npm :-
 
 ```sh
-$ npm i api-config
+npm i api-config
 ```
 
 Using yarn :-
 
 ```sh
-$ yarn add api-config
+yarn add api-config
 ```
 
 ## API
@@ -33,8 +32,7 @@ $ yarn add api-config
 
 Usage :-
 
-Getting localstorage data easier. You don't have to parse the stringified json object just pass the key in the parameter
-of the function.
+Facilitating the retrieval of data from local storage is made simpler. There's no need to manually parse a stringified JSON object – just pass the key as a parameter to the function.
 
 ### Import
 
@@ -54,8 +52,8 @@ import {getLocalStorageValue} from "api-config";
   getLocalStorageValue("key")
   ```
 
-So as you see you don't have to parse the json object. Assign a variable in this function you can get your localstorage
-data.
+As demonstrated, there's no need to manually parse the JSON object. Simply assign a variable within this function, and you can effortlessly retrieve your data stored in local storage.
+***
 
 # Generate Token
 
@@ -151,15 +149,13 @@ id: 123
 
 Usage :-
 
-- Calling **POST** api easily with this. You just have to pass a object in the function's parameter.
+- Facilitating the execution of a **POST** API request is simplified using this functionality. Just pass an object in the function's parameter, and the process becomes straightforward.
 
-  	This function returns promise so either you have to use then catch or async/await.
+  	The function returns a promise, so you can utilize either the `then/catch` syntax or leverage `async/await` for handling its outcome.
 
-- If there is any token token dependency you can either enter your own token or if the token is available in your
-  localstorage as **token**, then this function is already take care of this.
+- If there is a token dependency, you have the flexibility to either input your own token directly or, if the token is stored in your local storage as `token`, the function automatically handles this scenario.
 
-- If this is using for login purposes, If the **token** is available in the result then token will be automatically
-  stored to localstorage.
+- If this is utilized for login purposes, the function automatically stores the `token` in the local storage if it is available in the result.
 
 ### Import
 
@@ -175,7 +171,7 @@ let's assume my url is -
 https://jsonplaceholder.typicode.com/todos
 ```
 
-so rather than using fetch or axios, we can use below function:
+Instead of employing fetch or axios, you can streamline your workflow by utilizing the following function:
 
 ```typescript
 let data = await doPostApiCall({
@@ -189,7 +185,7 @@ let data = await doPostApiCall({
 })
 ```
 
-And if there is your **authToken** in another storage,
+If your `authToken` is stored in another storage,
 
 ```typescript
 let data = await doPostApiCall({
@@ -204,19 +200,19 @@ let data = await doPostApiCall({
 })
 ```
 
-You can see your **response** in the **data** variable.
+You can view the `response` conveniently within the `data` variable.
+
 ***
 
 # doGetApiCall
 
 Usage :-
 
-- Calling **GET** api easily with this. You just have to pass a object in the function's parameter.
+- Executing a **GET** API request is simplified using this function. Simply pass an object as the parameter to initiate the process effortlessly.
 
-  	This function returns promise so either you have to use then catch or async/await.
+  	The function returns a promise, providing the flexibility to handle it using either the `then/catch` syntax or through `async/await`.
 
-- If there is any token token dependency you can either enter your own token or if the token is available in your
-  localstorage as **token**, then this function is already take care of this.
+- In the case of a token dependency, you can either input your own token directly or, if the `token` is available in your local storage, this function automatically handles the scenario.
 
 ### Import
 
@@ -232,7 +228,7 @@ let's assume my url is -
 https://jsonplaceholder.typicode.com/todos/1
 ```
 
-so rather than using fetch or axios, we can use below function:
+Instead of resorting to fetch or axios, you can simplify your approach by utilizing the following function:
 
 ```typescript
 let data = await doGetApiCall({
@@ -240,7 +236,7 @@ let data = await doGetApiCall({
 })
 ```
 
-And if there is your **authToken** in another storage,
+If your `authToken` is stored in another storage,
 
 ```typescript
 let data = await doGetApiCall({
@@ -249,7 +245,7 @@ let data = await doGetApiCall({
 })
 ```
 
-You can see your **response** in the **data** variable.
+You can view the `response` conveniently within the `data` variable.
 
 ***
 
@@ -257,12 +253,11 @@ You can see your **response** in the **data** variable.
 
 Usage :-
 
-- This function is used to call **PUT** api. You just have to pass a object in the function's parameter.
+- This function is designed for calling a **PUT** API effortlessly. Simply provide an object as a parameter to initiate the process.
 
-  	This function returns promise so either you have to use then catch or async/await.
+  	The function returns a promise, providing the flexibility to handle it using either the `then/catch` syntax or through `async/await`.
 
-- If there is any token token dependency you can either enter your own token or if the token is available in your
-  localstorage as **token**, then this function is already take care of this.
+- In the presence of a token dependency, you have the flexibility to input your own token or, if available in your local storage as `token`, the function automatically manages this scenario.
 
 ### Import
 
@@ -278,7 +273,7 @@ let's assume my url is -
 https://jsonplaceholder.typicode.com/todos/1
 ```
 
-so rather than using fetch or axios, we can use below function:
+Instead of resorting to fetch or axios, you can streamline your approach by utilizing the following function:
 
 ```typescript
 let data = await doPutApiCall({
@@ -292,7 +287,7 @@ let data = await doPutApiCall({
 })
 ```
 
-And if there is your **authToken** in another storage,
+If your **authToken** is stored in another storage,
 
 ```typescript
 let data = await doPutApiCall({
@@ -307,7 +302,7 @@ let data = await doPutApiCall({
 })
 ```
 
-You can see your **response** in the **data** variable.
+You can view the `response` conveniently within the `data` variable.
 
 ***
 
@@ -315,12 +310,11 @@ You can see your **response** in the **data** variable.
 
 Usage :-
 
-- This function is used to call **DELETE** api. You just have to pass a object in the function's parameter.
+- This function is employed for calling a **DELETE** API seamlessly. Simply provide an object as a parameter to initiate the process.
 
-  	This function returns promise so either you have to use then catch or async/await.
+  	The function returns a promise, providing the flexibility to handle it using either the `then/catch` syntax or through `async/await`.
 
-- If there is any token token dependency you can either enter your own token or if the token is available in your
-  localstorage as **token**, then this function is already take care of this.
+- In the presence of a token dependency, you can either input your own token, or if the token is available in your local storage as `token`, this function automatically manages this scenario.
 
 ### Import
 
@@ -336,7 +330,7 @@ let's assume my url is -
 https://jsonplaceholder.typicode.com/todos/1
 ```
 
-so rather than using fetch or axios, we can use below function:
+Instead of resorting to fetch or axios, you can streamline your approach by utilizing the following function:
 
 ```typescript
 let data = await doDeleteApiCall({
@@ -365,15 +359,14 @@ let data = await doDeleteApiCall({
 })
 ```
 
-You can see your **response** in the **data** variable.
-
+You can view the `response` conveniently within the `data` variable.
 ***
 
 ## Interfaces for function's parameter.
 
 ## getData
 
-This interface should be use for doGetApiCall function’s parameter.
+This interface is intended to be used as the parameter for the `doGetApiCall` function.
 
 ```typescript
 interface getData {
@@ -392,7 +385,7 @@ let data: getData = {
 
 ## postData
 
-This interface should be use for doPostApiCall function’s parameter.
+This interface is meant to be used as the parameter for the `doPostApiCall` function.
 
 ```typescript
 interface postData {
@@ -418,7 +411,7 @@ let data: getData = {
 
 ## updateData
 
-This interface should be use for doPostApiCall function’s parameter.
+This interface should be used as the parameter for the `doPostApiCall` function.
 
 ```ts
 interface postData {
@@ -430,7 +423,7 @@ interface postData {
 
 ### Example:
 
-**N.B**: bodyData is optional here.
+**N.B**: The `bodyData` parameter is optional in this context.
 
 ```ts
 let data: updateData = {
@@ -443,3 +436,5 @@ let data: updateData = {
     }
 }
 ```
+
+***
