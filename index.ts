@@ -38,7 +38,7 @@ export const generateToken = (
 export const decodeToken = (token: string, secret: string) => {
     try {
         const bytes = CryptoJS.AES.decrypt(token, secret);
-        return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        return bytes.toString(CryptoJS.enc.Utf8);
     } catch (error) {
         console.error(error, "<<-- error in decodeToken");
         return error;
