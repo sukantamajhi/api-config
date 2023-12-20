@@ -14,3 +14,5 @@ export interface updateData {
     authToken?: string,
     bodyData?: object
 }
+
+export type genTokenPayload = string | object | Array<string | object>
