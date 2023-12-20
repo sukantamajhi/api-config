@@ -55,7 +55,7 @@ As demonstrated, there's no need to parse the JSON object manually. Simply assig
 
 # Generate Token
 
-Usage :-
+### Usage:-
 
 - The generateToken function is designed to create a cipher text token by utilizing the provided data and a given secret key.
 
@@ -98,7 +98,7 @@ generateToken(payload, secret);
 
 # Decode Token
 
-Usage :-
+### Usage:-
 
 - The decodeToken function is specifically designed to decrypt a cipher text token.
 
@@ -136,10 +136,7 @@ decodeToken(token, secret);
 
 ### Output Example:
 
-`{  
-email: "john@doe.com",  
-id: 123  
-}`
+`{email: "john@doe.com", id: 123}`
 
 ***  
 
@@ -149,7 +146,7 @@ id: 123
 
 - Facilitating the execution of a **POST** API request is simplified using this functionality. Just pass an object in the function's parameter, and the process becomes straightforward.
 
-  The function returns a promise, so you can utilize either the `then/catch` syntax or leverage `async/await` to handle its outcome.
+      The function returns a promise, so you can utilize either the `then/catch` syntax or leverage `async/await` to handle its outcome.
 
 - If there is a token dependency, you have the flexibility to either input your token directly or, if the token is stored in your local storage as a `token`, the function automatically handles this scenario.
 
@@ -208,7 +205,7 @@ You can view the `response` conveniently within the `data` variable.
 
 - Executing a **GET** API request is simplified using this function. Pass an object as the parameter to initiate the process effortlessly.
 
-  The function returns a promise, providing the flexibility to handle it using either the `then/catch` syntax or through `async/await`.
+      The function returns a promise, providing the flexibility to handle it using either the `then/catch` syntax or through `async/await`.
 
 - In the case of a token dependency, you can either input your token directly or, if the `token` is available in your local storage, this function automatically handles the scenario.
 
