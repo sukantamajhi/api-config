@@ -1,10 +1,12 @@
 # api-config
 
-This package simplifies data retrieval through a straightforward function call. By passing an object as a parameter to these functions, you can effortlessly obtain JSON data as the return output.
+This package simplifies data retrieval through a straightforward function call. By passing an object as a parameter to
+these functions, you can effortlessly obtain JSON data as the return output.
 
 ### Prerequisites
 
-Here is an illustrative example outlining the necessary steps to enumerate the essential components required for using the software, along with clear instructions on how to install each of them.
+Here is an illustrative example outlining the necessary steps to enumerate the essential components required for using
+the software, along with clear instructions on how to install each of them.
 
 ```sh  
 npm install npm@latest -g
@@ -32,7 +34,8 @@ yarn add api-config
 
 ### Usage :-
 
-Facilitating the retrieval of data from local storage is made simpler. There's no need to manually parse a stringified JSON object – just pass the key as a parameter to the function.
+Facilitating the retrieval of data from local storage is made simpler. There's no need to manually parse a stringified
+JSON object – just pass the key as a parameter to the function.
 
 ### Import
 
@@ -43,27 +46,34 @@ import {getLocalStorageValue} from "api-config";
 ### Examples
 
 - A normal string of data
+
  ```typescript  
   getLocalStorageValue("Key")  
  ```
+
 - A stringified JSON data
+
 ```typescript
   getLocalStorageValue("key")  
  ``` 
-As demonstrated, there's no need to parse the JSON object manually. Simply assign a variable within this function, and you can effortlessly retrieve your data stored in local storage.
+
+As demonstrated, there's no need to parse the JSON object manually. Simply assign a variable within this function, and
+you can effortlessly retrieve your data stored in local storage.
 ***  
 
 # Generate Token
 
 ### Usage:-
 
-- The generateToken function is designed to create a cipher text token by utilizing the provided data and a given secret key.
+- The generateToken function is designed to create a cipher text token by utilizing the provided data and a given secret
+  key.
 
 - To use this function, two essential inputs are required: a payload and a secret key.
 
 - The term `payload` in this context refers to the string or object that is intended to be encrypted.
 
-- The `secret` is a key necessary for both encrypting and decrypting the payload, and it should be kept confidential. Avoid public disclosure of the secret key.
+- The `secret` is a key necessary for both encrypting and decrypting the payload, and it should be kept confidential.
+  Avoid public disclosure of the secret key.
 
 ### Import
 
@@ -74,19 +84,19 @@ import {generateToken} from "api-config";
 ### Parameters
 
 ```typescript  
-const payload = {  
-	 email: "john@doe.com", 
-	 id: 123
- };  
-  
+const payload = {
+	email: "john@doe.com",
+	id: 123
+};
+
 const secret = "This is my secret key";  
 ```  
 
 ### Input Example:
 
 ```typescript  
-import {generateToken} from "api-config";  
-  
+import {generateToken} from "api-config";
+
 generateToken(payload, secret);  
 ```  
 
@@ -121,22 +131,27 @@ import {decodeToken} from "api-config";
 ### Payload
 
 ```typescript  
-const token = "U2FsdGVkX19QVOZV/OYp+rQA5jc6agkp9I+ZlKoVy8peLfPDyA24OxmC+uIDvjM1bzZLqWeA0qYnm38Z5Sb7Yw==";  
-  
+const token = "U2FsdGVkX19QVOZV/OYp+rQA5jc6agkp9I+ZlKoVy8peLfPDyA24OxmC+uIDvjM1bzZLqWeA0qYnm38Z5Sb7Yw==";
+
 const secret = "This is my secret key";  
 ```  
 
 ### Input Example:
 
 ```typescript  
-import {decodeToken} from "api-config";  
-  
+import {decodeToken} from "api-config";
+
 decodeToken(token, secret);  
 ```  
 
 ### Output Example:
 
-`{email: "john@doe.com", id: 123}`
+```json5
+{
+    email: "john@doe.com",
+    id:123
+}
+```
 
 ***  
 
@@ -144,13 +159,16 @@ decodeToken(token, secret);
 
 ### Usage:-
 
-- Facilitating the execution of a **POST** API request is simplified using this functionality. Just pass an object in the function's parameter, and the process becomes straightforward.
+- Facilitating the execution of a **POST** API request is simplified using this functionality. Just pass an object in
+  the function's parameter, and the process becomes straightforward.
 
       The function returns a promise, so you can utilize either the `then/catch` syntax or leverage `async/await` to handle its outcome.
 
-- If there is a token dependency, you have the flexibility to either input your token directly or, if the token is stored in your local storage as a `token`, the function automatically handles this scenario.
+- If there is a token dependency, you have the flexibility to either input your token directly or, if the token is
+  stored in your local storage as a `token`, the function automatically handles this scenario.
 
-- If this is utilized for login purposes, the function automatically stores the `token` in the local storage if it is available in the result.
+- If this is utilized for login purposes, the function automatically stores the `token` in the local storage if it is
+  available in the result.
 
 ### Import:-
 
@@ -162,37 +180,37 @@ import {doPostApiCall} from "api-config";
 
 let's assume my URL is -
 
-```typescript  
+```http request  
 https://jsonplaceholder.typicode.com/todos  
 ```  
 
 Instead of employing fetch or Axios, you can streamline your workflow by utilising the following function:
 
 ```typescript  
-let data = await doPostApiCall({  
-	 url: "https://jsonplaceholder.typicode.com/todos", 
-	 bodyData: { 
-		 "userId": 1, 
-		 "id": 1, 
-		 "title": "delectus aut autem", 
-		 "completed": false 
-	 }
+let data = await doPostApiCall({
+	url: "https://jsonplaceholder.typicode.com/todos",
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
 })  
 ```  
 
 If your `authToken` is stored in another storage,
 
 ```typescript  
-let data = await doPostApiCall({  
-	 url: "https://jsonplaceholder.typicode.com/todos",
-	 authToken: "YOUR_TOKEN", 
-	 bodyData: {
-		  "userId": 1, 
-		  "id": 1, 
-		  "title": "delectus aut autem",
-		  "completed": false 
-	  }
- })  
+let data = await doPostApiCall({
+	url: "https://jsonplaceholder.typicode.com/todos",
+	authToken: "YOUR_TOKEN",
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
+})  
 ```  
 
 You can view the `response` conveniently within the `data` variable.
@@ -203,11 +221,13 @@ You can view the `response` conveniently within the `data` variable.
 
 ### Usage:-
 
-- Executing a **GET** API request is simplified using this function. Pass an object as the parameter to initiate the process effortlessly.
+- Executing a **GET** API request is simplified using this function. Pass an object as the parameter to initiate the
+  process effortlessly.
 
       The function returns a promise, providing the flexibility to handle it using either the `then/catch` syntax or through `async/await`.
 
-- In the case of a token dependency, you can either input your token directly or, if the `token` is available in your local storage, this function automatically handles the scenario.
+- In the case of a token dependency, you can either input your token directly or, if the `token` is available in your
+  local storage, this function automatically handles the scenario.
 
 ### Import
 
@@ -219,24 +239,24 @@ import {doGetApiCall} from "api-config";
 
 let's assume my url is -
 
-```typescript  
+```http request  
 https://jsonplaceholder.typicode.com/todos/1  
 ```  
 
 Instead of resorting to fetch or Axios, you can simplify your approach by utilising the following function:
 
 ```typescript  
-let data = await doGetApiCall({  
-	 url: "https://jsonplaceholder.typicode.com/todos",
+let data = await doGetApiCall({
+	url: "https://jsonplaceholder.typicode.com/todos",
 })  
 ```  
 
 If your `authToken` is stored in another storage,
 
 ```typescript  
-let data = await doGetApiCall({  
-	 url: "https://jsonplaceholder.typicode.com/todos", 
-	 authToken: "YOUR_TOKEN"
+let data = await doGetApiCall({
+	url: "https://jsonplaceholder.typicode.com/todos",
+	authToken: "YOUR_TOKEN"
 })  
 ```  
 
@@ -248,11 +268,13 @@ You can view the `response` conveniently within the `data` variable.
 
 ### Usage:-
 
-- This function is designed for calling a **PUT** API effortlessly. Provide an object as a parameter to initiate the process.
+- This function is designed for calling a **PUT** API effortlessly. Provide an object as a parameter to initiate the
+  process.
 
   	 The function returns a promise, providing the flexibility to handle it using either the `then/catch` syntax or through `async/await`.  
 
-- In the presence of a token dependency, you have the flexibility to input your token or, if available in your local storage as a `token`, the function automatically manages this scenario.
+- In the presence of a token dependency, you have the flexibility to input your token or, if available in your local
+  storage as a `token`, the function automatically manages this scenario.
 
 ### Import
 
@@ -264,36 +286,36 @@ import {doPutApiCall} from "api-config";
 
 let's assume my URL is -
 
-```typescript  
+```http request  
 https://jsonplaceholder.typicode.com/todos/1  
 ```  
 
 Instead of resorting to fetch or Axios, you can streamline your approach by utilising the following function:
 
 ```typescript  
-let data = await doPutApiCall({  
-	 url: "https://jsonplaceholder.typicode.com/todos", 
-	 bodyData: { 
-		 "userId": 1, 
-		 "id": 1, 
-		 "title": "delectus aut autem", 
-		 "completed": false 
-	 }
+let data = await doPutApiCall({
+	url: "https://jsonplaceholder.typicode.com/todos",
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
 })  
 ```  
 
 If your **authToken** is stored in another storage,
 
 ```typescript  
-let data = await doPutApiCall({  
-	 url: "https://jsonplaceholder.typicode.com/todos", 
-	 authToken: "YOUR_TOKEN", 
-	 bodyData: { 
-		 "userId": 1, 
-		 "id": 1, 
-		 "title": "delectus aut autem", 
-		 "completed": false 
-	 }
+let data = await doPutApiCall({
+	url: "https://jsonplaceholder.typicode.com/todos",
+	authToken: "YOUR_TOKEN",
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
 })  
 ```  
 
@@ -305,11 +327,13 @@ You can view the `response` conveniently within the `data` variable.
 
 ### Usage:-
 
-- This function is employed for calling a **DELETE** API seamlessly. Passing an object as a parameter to initiate the process.
+- This function is employed for calling a **DELETE** API seamlessly. Passing an object as a parameter to initiate the
+  process.
 
       The function returns a promise, providing the flexibility to handle it using either the `then/catch` syntax or through `async/await`.  
 
-- In the presence of a token dependency, you can either input your token or if the token is available in your local storage as a `token`, this function automatically manages this scenario.
+- In the presence of a token dependency, you can either input your token or if the token is available in your local
+  storage as a `token`, this function automatically manages this scenario.
 
 ### Import
 
@@ -321,36 +345,36 @@ import {doDeleteApiCall} from "api-config";
 
 let's assume my url is -
 
-```typescript  
+```http request  
 https://jsonplaceholder.typicode.com/todos/1  
-```  
+```
 
 Instead of resorting to fetch or Axios, you can streamline your approach by utilising the following function:
 
 ```typescript  
-let data = await doDeleteApiCall({  
-	 url: "https://jsonplaceholder.typicode.com/todos", 
-	 bodyData: { 
-		 "userId": 1, 
-		 "id": 1, 
-		 "title": "delectus aut autem", 
-		 "completed": false 
-	 }
+let data = await doDeleteApiCall({
+	url: "https://jsonplaceholder.typicode.com/todos",
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
 })  
 ```  
 
 And if there is your **authToken** in another storage,
 
 ```typescript  
-let data = await doDeleteApiCall({  
-	 url: "https://jsonplaceholder.typicode.com/todos", 
-	 authToken: "YOUR_TOKEN", 
-	 bodyData: { 
-		 "userId": 1, 
-		 "id": 1, 
-		 "title": "delectus aut autem", 
-		 "completed": false 
-	 }
+let data = await doDeleteApiCall({
+	url: "https://jsonplaceholder.typicode.com/todos",
+	authToken: "YOUR_TOKEN",
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
 })  
 ```  
 
@@ -364,8 +388,8 @@ You can view the `response` conveniently within the `data` variable.
 This interface is intended to be used as the parameter for the `doGetApiCall` function.
 
 ```typescript  
-interface getData {  
-	url: string, 
+interface getData {
+	url: string,
 	authToken?: string,
 }  
 ```  
@@ -373,7 +397,7 @@ interface getData {
 ### Example:
 
 ```typescript  
-let data: getData = {  
+let data: getData = {
 	url: 'https://jsonplaceholder.typicode.com/todos'
 }  
 ```  
@@ -383,9 +407,9 @@ let data: getData = {
 This interface is meant to be used as the parameter for the `doPostApiCall` function.
 
 ```typescript  
-interface postData {  
-	url: string, 
-	authToken?: string, 
+interface postData {
+	url: string,
+	authToken?: string,
 	bodyData: object
 }  
 ```  
@@ -393,15 +417,15 @@ interface postData {
 ### Example:
 
 ```ts  
-let data: getData = {  
-	 url: 'https://jsonplaceholder.typicode.com/todos', 
-	 bodyData: { 
-		 "userId": 1, 
-		 "id": 1, 
-		 "title": "delectus aut autem", 
-		 "completed": false 
-	 }
- }  
+let data: getData = {
+	url: 'https://jsonplaceholder.typicode.com/todos',
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
+	}
+}  
 ```  
 
 ## updateData
@@ -409,10 +433,10 @@ let data: getData = {
 This interface should be used as the parameter for the `doPostApiCall` function.
 
 ```ts  
-interface postData {  
-	 url: string, 
-	 authToken?: string, 
-	 bodyData?: object
+interface postData {
+	url: string,
+	authToken?: string,
+	bodyData?: object
 }  
 ```  
 
@@ -421,13 +445,13 @@ interface postData {
 **N.B**: The `bodyData` parameter is optional in this context.
 
 ```ts  
-let data: updateData = {  
-	url: 'https://jsonplaceholder.typicode.com/todos', 
-	bodyData: { 
-		"userId": 1, 
-		"id": 1, 
-		"title": "delectus aut autem", 
-		"completed": false 
+let data: updateData = {
+	url: 'https://jsonplaceholder.typicode.com/todos',
+	bodyData: {
+		"userId": 1,
+		"id": 1,
+		"title": "delectus aut autem",
+		"completed": false
 	}
 }  
 ```  
