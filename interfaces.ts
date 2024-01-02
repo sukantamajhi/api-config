@@ -12,12 +12,13 @@ export interface getData {
 export interface updateData {
 	url: string,
 	authToken?: string,
+	header?: object,
 	bodyData?: object
 }
 
 export interface IResponse {
 	token: string;
-	access_token: string
+	access_token: string;
 }
 
 export type genTokenPayload = string | Record<string, any> | Array<string | object>
