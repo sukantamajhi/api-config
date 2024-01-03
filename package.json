@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sukantamajhi/api-config.git"
+    "url": "https://github.com/sukantamajhi/api-config/tree/publish"
   },
   "scripts": {
     "build": "rm -rf lib && tsc --declaration; yarn minify",
