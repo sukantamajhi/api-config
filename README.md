@@ -182,7 +182,7 @@ apiConfig.decodeToken(token, secret);
   
 let's assume my URL is -  
   
-```http request
+```md
 https://jsonplaceholder.typicode.com/todos
 ```
 
@@ -234,7 +234,7 @@ You can view the `response` conveniently within the `data` variable.
   
 let's assume my url is -  
   
-```http request
+```md
 https://jsonplaceholder.typicode.com/todos
 ```
 
@@ -273,7 +273,7 @@ You can view the `response` conveniently within the `data` variable.
   
 let's assume my URL is -  
   
-```http request
+```md
 https://jsonplaceholder.typicode.com/todos
 ```
 
@@ -324,7 +324,7 @@ You can view the `response` conveniently within the `data` variable.
   
 let's assume my URL is -  
   
-```http request
+```md
 https://jsonplaceholder.typicode.com/todos
 ```
 
@@ -375,7 +375,7 @@ You can view the `response` conveniently within the `data` variable.
   
 let's assume my url is -  
   
-```http request
+```md
 https://jsonplaceholder.typicode.com/todos
 ```  
   
