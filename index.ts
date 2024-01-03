@@ -17,7 +17,7 @@ export const logger = pino({
 export class ApiConfig {
 	constructor(
 		public baseURL?: string,
-		public headers?: object,
+		public headers?: object
 	) {
 	}
 
