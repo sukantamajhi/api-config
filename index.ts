@@ -13,7 +13,7 @@ export { getData, postData, updateData };
 
 export const logger = (level?: pino.Level) =>
     pino({
-        level: level || "fatal",
+        level: level || "info",
         transport: {
             target: "pino-pretty",
             options: {
@@ -26,8 +26,10 @@ export class ApiConfig {
     constructor(
         public baseURL?: string,
         public headers?: object,
-        public logLevel: string = "fatal"
+        public logLevel: pino.Level = "info"
     ) {}
+
+    private log = logger(this.logLevel);
 
     public generateToken(payload: genTokenPayload, secret: string): tokenData {
         try {
@@ -36,7 +38,7 @@ export class ApiConfig {
                 secret
             ).toString();
         } catch (error) {
-            logger().error(error, "<<-- error in generateToken");
+            this.log.error(error, "<<-- error in generateToken");
             return error;
         }
     }
@@ -46,7 +48,7 @@ export class ApiConfig {
             const bytes = CryptoJS.AES.decrypt(token, secret);
             return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         } catch (error) {
-            logger().error(error, "<<-- error in decodeToken");
+            this.log.error(error, "<<-- error in decodeToken");
             return error;
         }
     }
@@ -89,7 +91,7 @@ export class ApiConfig {
             try {
                 return resolve(await this.CallApi(data.url, requestValues));
             } catch (e) {
-                logger().error(e, "<<== Error in get api call");
+                this.log.error(e, "<<== Error in get api call");
                 return reject(e);
             }
         });
@@ -116,7 +118,7 @@ export class ApiConfig {
             try {
                 return resolve(await this.CallApi(data.url, requestValues));
             } catch (e) {
-                logger().error(e, "<<== Error in post api call");
+                this.log.error(e, "<<== Error in post api call");
                 return reject(e);
             }
         });
@@ -143,7 +145,7 @@ export class ApiConfig {
             try {
                 return resolve(await this.CallApi(data.url, requestValues));
             } catch (e) {
-                logger().error(e, "<<== Error in put api call");
+                this.log.error(e, "<<== Error in put api call");
                 return reject(e);
             }
         });
@@ -172,7 +174,7 @@ export class ApiConfig {
             try {
                 return resolve(await this.CallApi(data.url, requestValues));
             } catch (e) {
-                logger().error(e, "<<== Error in patch api call");
+                this.log.error(e, "<<== Error in patch api call");
                 return reject(e);
             }
         });
@@ -201,7 +203,7 @@ export class ApiConfig {
             try {
                 return resolve(await this.CallApi(data.url, requestValues));
             } catch (e) {
-                logger().error(e, "<<== Error in delete api call");
+                this.log.error(e, "<<== Error in delete api call");
                 return reject(e);
             }
         });

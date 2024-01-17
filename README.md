@@ -62,7 +62,43 @@ const data = await apiConfig.get("/todos");
 ```
 
 Now, with the instance already configured, you can easily make requests without redefining the base URL each time.
-  
+
+## Logger
+### Usage:-
+Facilitating the usage of console.log in an organized and colorful way.
+
+### Example
+
+```typescript
+const {logger} = require("api-config");
+or
+import {logger} from "api-config";
+
+const log = logger();
+
+logger.info('hello world')
+```
+
+    If you don't want to see all logs, you can set loglel and pass it through logger function's parameter. the logLevels are listed below
+    
+```ts
+enum logLevel=["fatal", "error", "warn", "info", "debug", "trace"];
+```
+
+#### Usage with log level:-
+
+```ts
+const {logger} = require("api-config");
+or
+import {logger} from "api-config";
+
+const log = logger("error");
+
+logger.info('hello world')
+```
+
+**P.S.** - The default log level is info.
+
 ## getLocalStorageData  
   
 ### Usage:-
