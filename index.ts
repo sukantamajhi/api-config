@@ -11,7 +11,7 @@ import CryptoJS = require("crypto-js");
 
 export { getData, postData, updateData };
 
-export const logger = (level?: pino.Level) =>
+const logger = (level?: pino.Level) =>
     pino({
         level: level || "info",
         transport: {
@@ -214,7 +214,7 @@ export class ApiConfig {
             /^(https?:\/\/)?([\da-zA-Z.-]+)\.([a-zA-Z.]{2,6})([/\w .-]*)*\/?$/;
 
         return urlPattern.test(url);
-    };
+};
 
     protected newUrl = (url: string): string => {
         return this.isValidUrl(url) ? url : `${this.baseURL}${url}`;
