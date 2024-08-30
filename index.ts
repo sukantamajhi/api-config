@@ -7,39 +7,38 @@ import {
     tokenData,
     updateData,
 } from "./interfaces";
-import CryptoJS = require("crypto-js");
 
-export { getData, postData, updateData };
+import * as CryptoJS from "crypto-js";
 
-export const logger = (level?: pino.Level) =>
+export { getData, postData, updateData, pino };
+
+export const createLogger = (level: pino.Level = "info") =>
     pino({
-        level: level || "info",
+        level,
         transport: {
             target: "pino-pretty",
-            options: {
-                colorize: true,
-            },
+            options: { colorize: true },
         },
     });
 
 export class ApiConfig {
+    private log: pino.Logger;
+
     constructor(
-        public baseURL?: string,
-        public headers?: object,
-        public logLevel: pino.Level = "info"
-    ) {}
+        public baseURL: string = "",
+        public headers: Record<string, string> = {},
+        logLevel: pino.Level = "info"
+    ) {
+        this.log = createLogger(logLevel);
+    }
 
-    private log = logger(this.logLevel);
-
-    public generateToken(payload: genTokenPayload, secret: string): tokenData {
+    public generateToken(payload: genTokenPayload, secret: string): string {
         try {
-            return CryptoJS.AES.encrypt(
-                typeof payload === "string" ? payload : JSON.stringify(payload),
-                secret
-            ).toString();
+            const stringPayload = typeof payload === "string" ? payload : JSON.stringify(payload);
+            return CryptoJS.AES.encrypt(stringPayload, secret).toString();
         } catch (error) {
-            this.log.error(error, "<<-- error in generateToken");
-            return error;
+            this.log.error(error, "Error in generateToken");
+            throw error;
         }
     }
 
@@ -48,201 +47,77 @@ export class ApiConfig {
             const bytes = CryptoJS.AES.decrypt(token, secret);
             return JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
         } catch (error) {
-            this.log.error(error, "<<-- error in decodeToken");
-            return error;
+            this.log.error(error, "Error in decodeToken");
+            throw error;
         }
     }
 
     public getLocalStorageValue(key: string): any {
-        if (typeof window === "undefined") {
-            return null;
-        } else {
-            const data = localStorage.getItem(key);
-            if (data) {
-                try {
-                    return JSON.parse(data);
-                } catch (error) {
-                    return data;
-                }
-            } else {
-                return null;
-            }
+        if (typeof window === "undefined") return null;
+        const data = localStorage.getItem(key);
+        if (!data) return null;
+        try {
+            return JSON.parse(data);
+        } catch {
+            return data;
         }
     }
 
-    public get(data: getData) {
-        return new Promise(async (resolve, reject) => {
-            let token;
-            if (data.authToken) {
-                token = data.authToken;
-            } else {
-                this.getLocalStorageValue("token");
-            }
-            const requestValues = {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    Authorization: token || "",
-                    ...this.headers,
-                },
-            };
+    private async makeRequest(method: string, data: getData | postData | updateData): Promise<any> {
+        const token = data.authToken || this.getLocalStorageValue("token");
+        const requestValues = {
+            method,
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: token || "",
+                ...this.headers,
+            },
+            ...(method !== "GET" && { body: JSON.stringify((data as postData | updateData).bodyData) }),
+        };
 
-            try {
-                return resolve(await this.CallApi(data.url, requestValues));
-            } catch (e) {
-                this.log.error(e, "<<== Error in get api call");
-                return reject(e);
-            }
-        });
+        try {
+            return await this.CallApi(data.url, requestValues);
+        } catch (e) {
+            this.log.error(e, `Error in ${method.toLowerCase()} api call`);
+            throw e;
+        }
     }
 
-    public post(data: postData) {
-        return new Promise(async (resolve, reject) => {
-            let token;
-            if (data.authToken) {
-                token = data.authToken;
-            } else {
-                this.getLocalStorageValue("token");
+    public get = (data: getData) => this.makeRequest("GET", data);
+    public post = (data: postData) => this.makeRequest("POST", data);
+    public put = (data: updateData) => this.makeRequest("PUT", data);
+    public patch = (data: updateData) => this.makeRequest("PATCH", data);
+    public delete = (data: updateData) => this.makeRequest("DELETE", data);
+
+    private isValidUrl = (url: string): boolean =>
+        /^(https?:\/\/)?([\da-zA-Z.-]+)\.([a-zA-Z.]{2,6})([/\w .-]*)*\/?$/.test(url);
+
+    private newUrl = (url: string): string =>
+        this.isValidUrl(url) ? url : `${this.baseURL}${url}`;
+
+    protected async CallApi(url: string, requestValues?: RequestInit): Promise<IResponse | any> {
+        try {
+            const response = await fetch(this.newUrl(url), requestValues);
+            if (response.status === 401) {
+                localStorage.clear();
+                throw new Error("Unauthorized");
             }
-            const requestValues = {
-                method: "POST",
-                body: JSON.stringify(data.bodyData),
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    Authorization: token || "",
-                    ...this.headers,
-                },
-            };
-            try {
-                return resolve(await this.CallApi(data.url, requestValues));
-            } catch (e) {
-                this.log.error(e, "<<== Error in post api call");
-                return reject(e);
+            const data = await response.json();
+            if (data.token || data.access_token) {
+                localStorage.setItem("token", data.token || data.access_token);
             }
-        });
+            return data;
+        } catch (error) {
+            throw error;
+        }
     }
+}
 
-    public put(data: updateData) {
-        return new Promise(async (resolve, reject) => {
-            let token;
-            if (data.authToken) {
-                token = data.authToken;
-            } else {
-                this.getLocalStorageValue("token");
-            }
-            const requestValues = {
-                method: "PUT",
-                body: JSON.stringify(data.bodyData),
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    Authorization: token || "",
-                    ...this.headers,
-                },
-            };
-            try {
-                return resolve(await this.CallApi(data.url, requestValues));
-            } catch (e) {
-                this.log.error(e, "<<== Error in put api call");
-                return reject(e);
-            }
-        });
-    }
+export class PinoLogger {
+    public log: pino.Logger;
 
-    public patch(data: updateData) {
-        return new Promise(async (resolve, reject) => {
-            let token;
-            if (data.authToken) {
-                token = data.authToken;
-            } else {
-                this.getLocalStorageValue("token");
-            }
-
-            const requestValues = {
-                method: "PATCH",
-                body: JSON.stringify(data.bodyData),
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    Authorization: token || "",
-                    ...this.headers,
-                },
-            };
-
-            try {
-                return resolve(await this.CallApi(data.url, requestValues));
-            } catch (e) {
-                this.log.error(e, "<<== Error in patch api call");
-                return reject(e);
-            }
-        });
-    }
-
-    public delete(data: updateData) {
-        return new Promise(async (resolve, reject) => {
-            let token;
-            if (data.authToken) {
-                token = data.authToken;
-            } else {
-                this.getLocalStorageValue("token");
-            }
-
-            const requestValues = {
-                method: "DELETE",
-                body: JSON.stringify(data.bodyData),
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    Authorization: token || "",
-                    ...this.headers,
-                },
-            };
-
-            try {
-                return resolve(await this.CallApi(data.url, requestValues));
-            } catch (e) {
-                this.log.error(e, "<<== Error in delete api call");
-                return reject(e);
-            }
-        });
-    }
-
-    protected isValidUrl = (url: string): boolean => {
-        const urlPattern: RegExp =
-            /^(https?:\/\/)?([\da-zA-Z.-]+)\.([a-zA-Z.]{2,6})([/\w .-]*)*\/?$/;
-
-        return urlPattern.test(url);
-    };
-
-    protected newUrl = (url: string): string => {
-        return this.isValidUrl(url) ? url : `${this.baseURL}${url}`;
-    };
-
-    protected CallApi(url: string, requestValues?: object) {
-        return new Promise(
-            async (resolve, reject): Promise<IResponse | any> => {
-                fetch(this.newUrl(url), requestValues)
-                    .then((response) => {
-                        if (response.status === 401) {
-                            localStorage.clear();
-                            return reject("Unauthorized");
-                        } else {
-                            return response.json();
-                        }
-                    })
-                    .then((data) => {
-                        if (data.token || data.access_token) {
-                            localStorage.setItem(
-                                "token",
-                                data.token || data.access_token
-                            );
-                        }
-                        return resolve(data);
-                    })
-                    .catch((error) => reject(error));
-            }
-        );
+    constructor(logLevel: pino.Level = "info") {
+        this.log = createLogger(logLevel);
     }
 }

@@ -9,7 +9,8 @@
     },
     "scripts": {
         "build": "rm -rf lib && tsc --declaration; yarn minify",
-        "minify": "uglifyjs -mc --output lib/index.js -- lib/index.js; uglifyjs -mc --output lib/interfaces.js -- lib/interfaces.js"
+        "win:build": "rmdir /s lib && tsc",
+        "minify": "uglifyjs -mc --output lib/index.js -- lib/index.js && uglifyjs -mc --output lib/interfaces.js -- lib/interfaces.js"
     },
     "author": "Sukanta Majhi<sukantamajhi799@gmail.com>",
     "license": "ISC",
