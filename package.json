@@ -1,6 +1,6 @@
 {
     "name": "api-config",
-    "version": "1.1.9",
+    "version": "1.2.0",
     "description": "This package simplifies data retrieval through a straightforward function call",
     "main": "lib/index.js",
     "repository": {
